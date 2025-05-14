@@ -27,6 +27,7 @@ export class ConnectionsGateway
   @SubscribeMessage("createConnection")
   async handleCreateConnection(client: any, payload: { uuid: string }) {
     await this.connectionService.createConnection(client.id, payload.uuid);
+    console.log("connect -", client.id);
     //this.waitingConnections.push({ id: client.id, uuid: payload.uuid, isWaiting: true });
   }
 
@@ -100,6 +101,7 @@ export class ConnectionsGateway
 
   async handleDisconnect(client: Socket) {
     //this.waitingConnections.filter((connection) => connection.id !== client.id);
+    console.log("disconnect -", client.id);
     await this.connectionService.deleteConnection(client.id);
   }
 
