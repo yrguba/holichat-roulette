@@ -40,9 +40,10 @@ const Main = () => {
   const [isWaitingParticipant, setIsWaitingParticipant] = useState(false);
   const [name, setName] = useState<string>("");
 
+  console.log(socket);
   const handleStart = () => {
     setIsWaitingParticipant(true);
-
+    console.log(isConnected);
     socket.emit("createConnection", { uuid: "test_uuid" });
   };
 
@@ -91,7 +92,7 @@ const Main = () => {
                 "participantJoined",
                 (participant: any) => {
                   console.log("participantJoined");
-                },
+                }
               );
               externalApi.addListener("participantLeft", (participant: any) => {
                 console.log("participantLeft");
