@@ -5,12 +5,12 @@ server {
       listen [::]:80 default_server;
 
 
-      root /var/www/holichat-roulette/build;
+      root /var/www/holichat-roulette/front/build;
       index index.html index.htm index.nginx-debian.html;
       server_name hoolichat.ru; # managed by Certbot
 
     location / {
-        root /var/www/confee-backend/build;
+        root /var/www/holichat-roulette/front/build;
         try_files $uri $uri/ /index.html;
     }
 

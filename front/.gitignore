@@ -1,7 +1,6 @@
 /node_modules
 /.pnpm-store
 /.idea
-/build
 /.vscode
 package-lock.json
 /.DS_Store
