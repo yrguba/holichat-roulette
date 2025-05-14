@@ -42,6 +42,8 @@ const Main = () => {
 
   const handleStart = () => {
     setIsWaitingParticipant(true);
+
+    socket.emit("createConnection", { uuid: "test_uuid" });
   };
 
   return (
