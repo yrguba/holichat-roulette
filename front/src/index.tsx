@@ -5,6 +5,7 @@ import RU from "antd/locale/ru_RU";
 
 import { StoresProvider, stores } from "stores";
 import { GENERAL_TOKEN } from "theme/antdComponentTokens";
+import SocketProvider from "socket";
 
 import App from "./App";
 
@@ -18,7 +19,7 @@ const Providers = ({ children }: PropsWithChildren) => {
         }}
         locale={RU}
       >
-        {children}
+        <SocketProvider>{children}</SocketProvider>
       </ConfigProvider>
     </StoresProvider>
   );

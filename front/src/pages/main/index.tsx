@@ -4,6 +4,8 @@ import { Button, Input, Spin } from "antd";
 import "./styles.less";
 import { JitsiMeeting } from "@jitsi/react-sdk";
 
+import { useSocket } from "socket";
+
 export const CONFERENCE_CONFIG_OVERWRITE = {
   startWithAudioMuted: true,
   startWithVideoMuted: true,
@@ -33,6 +35,7 @@ export const getIframeRef = (parentNode: HTMLDivElement) => {
 };
 
 const Main = () => {
+  const { socket, isConnected } = useSocket();
   const [roomUuid, setRoomUuid] = useState<string | null>(null);
   const [isWaitingParticipant, setIsWaitingParticipant] = useState(false);
   const [name, setName] = useState<string>("");
