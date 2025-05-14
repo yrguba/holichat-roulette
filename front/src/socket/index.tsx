@@ -18,14 +18,17 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     socket.on("connect", () => {
+      console.log("socket connect");
       setIsConnected(true);
     });
 
     socket.on("disconnect", () => {
+      console.log("socket disconnect");
       setIsConnected(false);
     });
 
     socket.on("error", () => {
+      console.log("socket error");
       //
     });
 

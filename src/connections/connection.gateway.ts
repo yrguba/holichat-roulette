@@ -8,6 +8,7 @@ import {
 } from "@nestjs/websockets";
 import { Socket, Server } from "socket.io";
 import { ConnectionsService } from "./connections.service";
+import { logger } from "nestjs-i18n";
 
 @WebSocketGateway({
   cors: {
@@ -28,6 +29,7 @@ export class ConnectionsGateway
   async handleCreateConnection(client: any, payload: { uuid: string }) {
     await this.connectionService.createConnection(client.id, payload.uuid);
     console.log("connect -", client.id);
+    logger.log("connect -", client.id);
     //this.waitingConnections.push({ id: client.id, uuid: payload.uuid, isWaiting: true });
   }
 
@@ -99,10 +101,11 @@ export class ConnectionsGateway
     }
   }
 
-  async handleDisconnect(client: Socket) {
+  handleDisconnect(client: Socket) {
     //this.waitingConnections.filter((connection) => connection.id !== client.id);
     console.log("disconnect -", client.id);
-    await this.connectionService.deleteConnection(client.id);
+    logger.log("disconnect -", client.id);
+    //await this.connectionService.deleteConnection(client.id);
   }
 
   afterInit(server: Server) {
