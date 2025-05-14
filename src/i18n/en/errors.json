@@ -1,0 +1,7 @@
+{
+  "server": "Server error",
+  "unauthorized": "Unauthorized",
+  "forbidden": "Forbidden",
+  "code_duration": "Can not resend code, try later",
+  "notfound": "User not found"
+}
