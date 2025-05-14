@@ -86,7 +86,7 @@ const Main = () => {
                 "participantJoined",
                 (participant: any) => {
                   console.log("participantJoined");
-                }
+                },
               );
               externalApi.addListener("participantLeft", (participant: any) => {
                 console.log("participantLeft");
