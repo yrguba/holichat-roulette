@@ -77,6 +77,6 @@ export class ConnectionsService {
   }
 
   async deleteActiveConnections() {
-    this.connectionModel.deleteMany({ isWaiting: true });
+    this.connectionModel.deleteMany({ isWaiting: true }).exec();
   }
 }
