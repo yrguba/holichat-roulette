@@ -63,7 +63,7 @@ export class ConnectionsController {
   }
 
   @ApiParam({ name: "uuid", required: true })
-  @Post("/:uuid/refresh")
+  @Post("/deleteActive")
   async deleteActiveConnection(@Res() res, @Req() req) {
     await this.connectionsService.deleteActiveConnections();
 
