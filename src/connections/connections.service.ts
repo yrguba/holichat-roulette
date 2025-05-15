@@ -8,6 +8,7 @@ import { CreateConnectionDto } from "./dto/create-connection.dto";
 import { CryptoService } from "../crypto/crypto.service";
 import { Server } from "socket.io";
 import { ShopDocument } from "../modules/shops/schemas/shop.schema";
+import { OrganizationDocument } from "../organization/schemas/organization.schema";
 
 @Injectable()
 export class ConnectionsService {
@@ -67,6 +68,10 @@ export class ConnectionsService {
     return this.connectionModel.find({ isWaiting: true }).exec();
   }
 
+  async getConnection(uuid: string): Promise<ConnectionDocument> {
+    return this.connectionModel.findOne({ uuid: uuid });
+  }
+
   async deleteConnection(clientId: string): Promise<ConnectionDocument> {
     return this.connectionModel.findByIdAndDelete(
       {
@@ -77,6 +82,6 @@ export class ConnectionsService {
   }
 
   async deleteActiveConnections() {
-    this.connectionModel.deleteMany({ isWaiting: true }).exec();
+    await this.connectionModel.deleteMany({ isWaiting: true }).exec();
   }
 }

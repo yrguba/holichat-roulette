@@ -43,6 +43,19 @@ const Main = observer(() => {
   const [isWaitingParticipant, setIsWaitingParticipant] = useState(false);
   const [name, setName] = useState<string>("");
 
+  const acceptConnection = () => {
+    setIsWaitingParticipant(false);
+    setRoomUuid(_getUuid());
+  };
+
+  useEffect(() => {
+    socket.on("acceptToConnect", acceptConnection);
+
+    return () => {
+      socket.off("acceptToConnect", acceptConnection);
+    };
+  }, [socket]);
+
   const getRandomIndex = (max: number) => {
     return Math.floor(Math.random() * max);
   };
@@ -52,13 +65,11 @@ const Main = observer(() => {
     const uuid = _getUuid();
 
     mainStore.getConnectionList().then((list) => {
-      console.log(list.length);
       if (list?.length > 0) {
-        console.log(getRandomIndex(list.length - 1));
         const targetConnection = list[getRandomIndex(list.length - 1)];
-        console.log(targetConnection.uuid);
         setRoomUuid(targetConnection.uuid);
         setIsWaitingParticipant(false);
+        socket.emit("requestToConnect", { uuid: uuid });
       } else {
         socket.emit("createConnection", { uuid: uuid });
       }

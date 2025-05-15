@@ -33,6 +33,19 @@ export class ConnectionsGateway
     //this.waitingConnections.push({ id: client.id, uuid: payload.uuid, isWaiting: true });
   }
 
+  @SubscribeMessage("requestToConnect")
+  async handleRequestToConnect(client: any, payload: { uuid: string }) {
+    const connection = await this.connectionService.getConnection(payload.uuid);
+
+    if (connection && connection?.clientId) {
+      logger.log("requestToConnect -", connection.clientId);
+      logger.log("requestToConnect -", connection.uuid);
+
+      this.server.to(connection.clientId).emit("acceptToConnect", {});
+    }
+    //this.waitingConnections.push({ id: client.id, uuid: payload.uuid, isWaiting: true });
+  }
+
   // @SubscribeMessage("responseAccessToConference")
   // async handleResponseAccessToConference(
   //   client: any,
