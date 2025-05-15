@@ -69,7 +69,8 @@ const Main = observer(() => {
         const targetConnection = list[getRandomIndex(list.length - 1)];
         setRoomUuid(targetConnection.uuid);
         setIsWaitingParticipant(false);
-        socket.emit("requestToConnect", { uuid: uuid });
+        console.log("requestToConnect", targetConnection.uuid);
+        socket.emit("requestToConnect", { uuid: targetConnection.uuid });
       } else {
         socket.emit("createConnection", { uuid: uuid });
       }
