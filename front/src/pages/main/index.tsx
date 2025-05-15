@@ -44,7 +44,7 @@ const Main = observer(() => {
   const [name, setName] = useState<string>("");
 
   const getRandomIndex = (max: number) => {
-    return Math.floor(Math.random() * (max - 1));
+    return Math.floor(Math.random() * max);
   };
 
   const handleStart = () => {
@@ -52,9 +52,11 @@ const Main = observer(() => {
     const uuid = _getUuid();
 
     mainStore.getConnectionList().then((list) => {
+      console.log(list.length);
       if (list?.length > 0) {
+        console.log(getRandomIndex(list.length - 1));
         const targetConnection = list[getRandomIndex(list.length - 1)];
-
+        console.log(targetConnection.uuid);
         setRoomUuid(targetConnection.uuid);
         setIsWaitingParticipant(false);
       } else {
@@ -68,7 +70,7 @@ const Main = observer(() => {
       <div className="main-container__video">
         {roomUuid ? (
           <JitsiMeeting
-            domain={"video.confee.ru"}
+            domain={"video2.confee.ru"}
             roomName={"123"}
             configOverwrite={{
               ...CONFERENCE_CONFIG_OVERWRITE,

@@ -14,6 +14,9 @@ class MainStore {
 
   getConnectionList() {
     return http.get(`${API_URL}/connections/list`).then((response: any) => {
+      console.log(response.data.data);
+      console.log(response.data);
+
       this.list = response.data.data;
 
       return this.list;
