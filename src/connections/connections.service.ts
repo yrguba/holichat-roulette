@@ -75,4 +75,8 @@ export class ConnectionsService {
       { returnDocument: "after" }
     );
   }
+
+  async deleteActiveConnections() {
+    this.connectionModel.find({ isWaiting: true }).deleteMany();
+  }
 }
