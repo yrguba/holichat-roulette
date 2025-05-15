@@ -9,8 +9,8 @@ import { useStore } from "stores/hooks";
 import { _getUuid } from "service";
 
 export const CONFERENCE_CONFIG_OVERWRITE = {
-  startWithAudioMuted: true,
-  startWithVideoMuted: true,
+  startWithAudioMuted: false,
+  startWithVideoMuted: false,
   disableModeratorIndicator: true,
   startScreenSharing: false,
   enableEmailInStats: false,
