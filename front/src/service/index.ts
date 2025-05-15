@@ -1,5 +1,6 @@
 import Cookies from "universal-cookie";
 import { useLayoutEffect, useState } from "react";
+import { v4 } from "uuid";
 
 const cookies = new Cookies();
 
@@ -8,6 +9,19 @@ export const saveTokenToCookie = (token: string) => {
     path: "/",
     domain: window.location.hostname,
   });
+};
+
+export const _getUuid = () => {
+  const currentUuid = cookies.get("hc_uuid");
+
+  if (!currentUuid) {
+    const newUuid = v4();
+    cookies.set("hc_uuid", newUuid);
+
+    return newUuid;
+  }
+
+  return currentUuid;
 };
 
 export const _getToken = () => {

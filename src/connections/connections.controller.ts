@@ -48,11 +48,17 @@ export class ConnectionsController {
   // @UseGuards(JwtAuthGuard)
   @ApiParam({ name: "uuid", required: true })
   @Post("/:uuid/refresh")
-  async updateEmployee(@Res() res, @Req() req, @Param() params) {
-    const employee = await this.connectionsService.refreshConnection(
-      params.uuid
+  async updateConnection(
+    @Res() res,
+    @Req() req,
+    @Param() params,
+    @Body() body: any
+  ) {
+    const connection = await this.connectionsService.refreshConnection(
+      params.uuid,
+      body.isWaiting
     );
 
-    res.status(200).json({ data: employee });
+    res.status(200).json({ data: connection });
   }
 }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button, Input, Spin } from "antd";
 import "./styles.less";
 import { JitsiMeeting } from "@jitsi/react-sdk";
+import { observer } from "mobx-react-lite";
 
 import { useSocket } from "socket";
+import { useStore } from "stores/hooks";
+import { _getUuid } from "service";
 
 export const CONFERENCE_CONFIG_OVERWRITE = {
   startWithAudioMuted: true,
@@ -34,17 +36,31 @@ export const getIframeRef = (parentNode: HTMLDivElement) => {
   //parentNode.style.height = "600px";
 };
 
-const Main = () => {
+const Main = observer(() => {
+  const mainStore = useStore("mainStore");
   const { socket, isConnected } = useSocket();
   const [roomUuid, setRoomUuid] = useState<string | null>(null);
   const [isWaitingParticipant, setIsWaitingParticipant] = useState(false);
   const [name, setName] = useState<string>("");
 
-  console.log(socket);
+  const getRandomIndex = (max: number) => {
+    return Math.floor(Math.random() * (max - 1));
+  };
+
   const handleStart = () => {
     setIsWaitingParticipant(true);
-    console.log(isConnected);
-    socket.emit("createConnection", { uuid: "test_uuid" });
+    const uuid = _getUuid();
+
+    mainStore.getConnectionList().then((list) => {
+      if (list?.length > 0) {
+        const targetConnection = list[getRandomIndex(list.length - 1)];
+
+        setRoomUuid(targetConnection.uuid);
+        setIsWaitingParticipant(false);
+      } else {
+        socket.emit("createConnection", { uuid: uuid });
+      }
+    });
   };
 
   return (
@@ -91,10 +107,12 @@ const Main = () => {
               externalApi.addListener(
                 "participantJoined",
                 (participant: any) => {
-                  console.log("participantJoined");
+                  mainStore.refreshConnection(_getUuid(), false);
                 },
               );
               externalApi.addListener("participantLeft", (participant: any) => {
+                mainStore.refreshConnection(_getUuid(), true);
+                setIsWaitingParticipant(true);
                 console.log("participantLeft");
                 // const participants = externalApi.getParticipantsInfo();
                 // const botIndex = participants.findIndex(
@@ -137,17 +155,20 @@ const Main = () => {
           </div>
         )}
       </div>
-      <div>
-        <Button
-          size="large"
-          type="primary"
-          className="main-container__next-button"
-        >
-          Следующий
-        </Button>
-      </div>
+      {roomUuid && (
+        <div>
+          <Button
+            onClick={handleStart}
+            size="large"
+            type="primary"
+            className="main-container__next-button"
+          >
+            Следующий
+          </Button>
+        </div>
+      )}
     </div>
   );
-};
+});
 
 export default Main;

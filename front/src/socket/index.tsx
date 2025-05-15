@@ -16,8 +16,6 @@ const Ctx = createContext<any>({});
 const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(socket.connected);
 
-  console.log(123);
-
   useEffect(() => {
     socket.on("connect", () => {
       console.log("socket connect");

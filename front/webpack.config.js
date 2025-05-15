@@ -83,7 +83,7 @@ const getConfig = (mode = "production") => ({
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
           filename: "[name][ext]",
           outputPath: "media",
@@ -125,7 +125,7 @@ module.exports = (_, conf) => {
     config.devServer = {
       static: ["build"],
       compress: true,
-      port: 3003,
+      port: 3000,
       hot: true,
       historyApiFallback: true,
       open: {

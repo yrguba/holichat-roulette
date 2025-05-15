@@ -45,7 +45,10 @@ export class ConnectionsService {
     return createdConnection.save();
   }
 
-  async refreshConnection(uuid: string): Promise<ConnectionDocument> {
+  async refreshConnection(
+    uuid: string,
+    isWaiting: boolean
+  ): Promise<ConnectionDocument> {
     return this.connectionModel.findOneAndUpdate(
       {
         uuid: uuid,
@@ -53,7 +56,7 @@ export class ConnectionsService {
       {
         $set: {
           uuid: uuid,
-          isWaiting: true,
+          isWaiting: isWaiting,
         },
       },
       { returnDocument: "after" }
