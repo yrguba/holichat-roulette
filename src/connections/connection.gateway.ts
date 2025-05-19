@@ -114,11 +114,10 @@ export class ConnectionsGateway
     }
   }
 
-  handleDisconnect(client: Socket) {
+  async handleDisconnect(client: Socket) {
     //this.waitingConnections.filter((connection) => connection.id !== client.id);
-    console.log("disconnect -", client.id);
     logger.log("disconnect -", client.id);
-    //await this.connectionService.deleteConnection(client.id);
+    await this.connectionService.deleteConnection(client.id);
   }
 
   afterInit(server: Server) {

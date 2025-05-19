@@ -7,8 +7,6 @@ import { Model } from "mongoose";
 import { CreateConnectionDto } from "./dto/create-connection.dto";
 import { CryptoService } from "../crypto/crypto.service";
 import { Server } from "socket.io";
-import { ShopDocument } from "../modules/shops/schemas/shop.schema";
-import { OrganizationDocument } from "../organization/schemas/organization.schema";
 
 @Injectable()
 export class ConnectionsService {

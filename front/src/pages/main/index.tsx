@@ -18,6 +18,27 @@ export const CONFERENCE_CONFIG_OVERWRITE = {
   toolbarConfig: {
     alwaysVisible: window.innerWidth <= 1024,
   },
+  analytics: {
+    disabled: true,
+  },
+  deeplinking: {
+    disabled: true,
+  },
+  disablePolls: true,
+  defaultRemoteDisplayName: "Неизвестный пользователь",
+  prejoinConfig: {
+    enabled: false,
+  },
+  filmstrip: {
+    disabled: true,
+  },
+  defaultLogoUrl: "images/logo.svg",
+  hideConferenceSubject: true,
+  hideParticipantsStats: true,
+  conferenceInfo: {
+    alwaysVisible: [],
+  },
+  notifications: [],
 };
 
 export const INTERFACE_CONFIG_OVERWRITE = {
@@ -82,8 +103,8 @@ const Main = observer(() => {
       <div className="main-container__video">
         {roomUuid ? (
           <JitsiMeeting
-            domain={"video2.confee.ru"}
-            roomName={"123"}
+            domain={"video.hoolichat.ru"}
+            roomName={roomUuid}
             configOverwrite={{
               ...CONFERENCE_CONFIG_OVERWRITE,
               toolbarButtons: CONFERENCE_CONFIG_TOOLBAR_BUTTONS,
