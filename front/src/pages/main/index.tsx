@@ -172,7 +172,7 @@ const Main = observer(() => {
             ) : (
               <div className="waiting-block__content">
                 <Input
-                  placeholder="Ваше имя"
+                  placeholder="Представьтесь"
                   size="large"
                   onChange={(e) => setName(e.target.value)}
                 />
