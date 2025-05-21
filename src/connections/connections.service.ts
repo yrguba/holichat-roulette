@@ -71,7 +71,7 @@ export class ConnectionsService {
   }
 
   async deleteConnection(clientId: string): Promise<ConnectionDocument> {
-    return this.connectionModel.findByIdAndDelete(
+    return this.connectionModel.findOneAndDelete(
       {
         clientId: clientId,
       },
